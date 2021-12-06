@@ -15,7 +15,7 @@ class CreateGeneratedsTable extends Migration
     {
         Schema::create('generateds', function (Blueprint $table) {
             $table->id();
-            $table->string('slug');
+            $table->string('slug')->nullable();;
             $table->string('name');
             $table->timestamps();
         });
