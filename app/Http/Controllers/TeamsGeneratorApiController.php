@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Generated;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class TeamsGeneratorApiController extends Controller
 {
@@ -14,7 +14,7 @@ class TeamsGeneratorApiController extends Controller
 
     public function getTeams()
     {
-        $item = Generated::where('slug', request()->query('slug'))->get();
+        $item = Generated::where('slug', request()->query('slug'))->first();
         return $item;
     }
 
@@ -25,8 +25,9 @@ class TeamsGeneratorApiController extends Controller
             return response()->json([], 406);
         }
         // Check if name is present and is string
-        $valid = validator(request()->only('name'), [
+        $valid = validator(request()->only('name', 'data'), [
             'name' => 'required|string',
+            'data' => 'required',
         ]);
         if ($valid->fails()) {
             return response()->json($valid->errors()->all(), 400);
@@ -35,9 +36,11 @@ class TeamsGeneratorApiController extends Controller
         $generated = Generated::create([
             'name' => request('name'),
         ]);
+        $teamsJson = json_decode(request('data'), true);
         // Update slug field
         $generated->update([
-            'slug' => md5($generated->id)
+            'slug' => md5($generated->id),
+            'teams'=> $teamsJson
         ]);
         return $generated;
     }

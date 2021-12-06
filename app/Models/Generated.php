@@ -16,6 +16,11 @@ class Generated extends Model
      */
     protected $fillable = [
         'name',
-        'slug'
+        'slug',
+        'teams'
+    ];
+
+    protected $casts = [
+        'teams' => 'array',
     ];
 }
