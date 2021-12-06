@@ -12,6 +12,12 @@ class TeamsGeneratorApiController extends Controller
         return Generated::all();
     }
 
+    public function getTeams()
+    {
+        $item = Generated::where('slug', request()->query('slug'))->get();
+        return $item;
+    }
+
     public function store()
     {
         $acceptHeader = request()->header('Content-Type');

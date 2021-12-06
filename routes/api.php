@@ -28,3 +28,5 @@ Route::get('/all-generated', [TeamsGeneratorApiController::class, 'index']);
 Route::post('/generate', [TeamsGeneratorApiController::class, 'store']);
 
 Route::post('/generate-teams', [TeamsGeneratorApiController::class, 'generateRandomTeams']);
+
+Route::get('/teams', [TeamsGeneratorApiController::class, 'getTeams']);
