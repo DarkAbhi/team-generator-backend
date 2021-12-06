@@ -17,6 +17,7 @@ class CreateGeneratedsTable extends Migration
             $table->id();
             $table->string('slug')->nullable();
             $table->string('name');
+            $table->integer('days')->default(7);
             $table->jsonb('teams')->nullable();
             $table->timestamps();
         });
